@@ -1,0 +1,56 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.5.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+
+jar {
+    baseName = 'gs-integration'
+    version =  '0.1.0'
+}
+
+repositories {
+    maven {
+        url "http://repo.marketcetera.org/maven"
+    }
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-integration")
+    compile("org.springframework.integration:spring-integration-feed:4.0.4.RELEASE")
+    compile("org.springframework.integration:spring-integration-xml:4.0.4.RELEASE")
+    compile("org.springframework.integration:spring-integration-jms:4.0.4.RELEASE")
+    compile 'com.google.guava:guava:18.0'
+    compile 'quickfixj:quickfixj-all:1.5.3'
+    compile 'org.apache.mina:mina-core:1.1.7'
+
+
+    testCompile("junit:junit")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile 'com.jayway.awaitility:awaitility:1.6.3'
+    testCompile 'org.assertj:assertj-core:3.0.0'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
+
+eclipse {
+    project {
+        natures += 'org.springframework.ide.eclipse.core.springnature'
+    }
+}
+
+
